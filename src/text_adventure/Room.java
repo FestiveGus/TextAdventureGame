@@ -36,19 +36,18 @@ class Room {
 	}
 	
 	static void setupRooms(HashMap<String, Room> roomList) {
-		Room r = new Room("Forest Clearing",
-				"There is a lovely peaceful clearing here\n"
-				+ "A path leads north and it looks like you can go through"
-				+ "the forest to the west");
+		Room r = new Room("Cell Room", "You wake up in your cell with no memory of what happened prior. You are inside a dungeon cell. The first thing you hear is the screams of people being dragged through the corridor. Upon inspection, you realize that they are being taken to an execution room. You are shocked. Before long, a guard unlocks your door. \r\n"
+				+ "\r\n"
+				+ "“It is time, criminal,” he says. \r\n"
+				+ "\r\n"
+				+ "\r\n"
+				+ "Before the guard can reach you, he topples over and is unconscious, behind him, revealing another prisoner.\r\n"
+				+ "\r\n"
+				+ "“Let’s get out of here,” the prisoner says before taking off.\r\n"
+				+ "");
 					//N  S  E  W 
-		r.setExits("forest1", "path1","","");
-		roomList.put("clearing", r);
-		
-		r = new Room("Tunnel",
-				"A slippery tunnel connecting parts of the cave system\n"
-				+ "At the south is a massive iron door");
-		r.setExits("", "cave", "tunnel2","");
-		roomList.put("tunnel1", r);		
+		r.setExits("", "corridor2","","");
+		roomList.put("startingcell", r);
 	}
 	
 }
