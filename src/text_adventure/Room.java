@@ -7,7 +7,7 @@ class Room {
 	//String name;
 	String displayName;
 	String description;
-	boolean isVisited;
+	boolean isVisited = false;
 	boolean isDark;
 	String N,S,E,W;	
 	ArrayList items = new ArrayList();
@@ -25,12 +25,12 @@ class Room {
 		this.S=S;
 	}
 	
-	String getExit(char dir) {
+	String getExit(String dir) {
 		switch (dir) {
-		case 'N': return this.N;
-		case 'S': return this.S;
-		case 'W': return this.W;
-		case 'E': return this.E;
+		case "n": return this.N;
+		case "s": return this.S;
+		case "w": return this.W;
+		case "e": return this.E;
 		default: return "";
 		}
 	}
