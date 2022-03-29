@@ -1,4 +1,5 @@
 package text_adventure;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 class Item {
@@ -11,6 +12,7 @@ class Item {
 	 String descrActive = ""; //description for when it's active
 	 //maybe also damage points, weight, cost in gold ...
 	 String readText = ""; //if there is writing on it
+	 //ArrayList components = new ArrayList();
 	 
 	 //constructors
 	 Item(String name, String description){

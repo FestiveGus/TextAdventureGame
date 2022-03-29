@@ -25,26 +25,18 @@ class Room {
 		this.S=S;
 	}
 	
-	String getExit(String dir) {
+	String getExit(char dir) {
 		switch (dir) {
-		case "n": return this.N;
-		case "s": return this.S;
-		case "w": return this.W;
-		case "e": return this.E;
+		case 'n': return this.N;
+		case 's': return this.S;
+		case 'w': return this.W;
+		case 'e': return this.E;
 		default: return "";
 		}
 	}
 	
 	static void setupRooms(HashMap<String, Room> roomList) {
-		Room r = new Room("Cell Room", "You wake up in your cell with no memory of what happened prior. You are inside a dungeon cell. The first thing you hear is the screams of people being dragged through the corridor. Upon inspection, you realize that they are being taken to an execution room. You are shocked. Before long, a guard unlocks your door. \r\n"
-				+ "\r\n"
-				+ "“It is time, criminal,” he says. \r\n"
-				+ "\r\n"
-				+ "\r\n"
-				+ "Before the guard can reach you, he topples over and is unconscious, behind him, revealing another prisoner.\r\n"
-				+ "\r\n"
-				+ "“Let’s get out of here,” the prisoner says before taking off.\r\n"
-				+ "");
+		Room r = new Room("Cell Room", "A dimly lit room with rough limestone walls. There is a small barred window that lets some light in. Metal bars surround the recently unlocked door and guard lies on the ground, unconscious.");
 		//N  S  E  W 
 		r.setExits("", "corridor2","","");
 		roomList.put("startingcell", r);
@@ -63,7 +55,7 @@ class Room {
 		r.setExits("", "","corridor1","");
 		roomList.put("executionroom", r);
 		
-		r = new Room("Corridor (East End)", "This side of the corridor leads to a giant metal gate, which appears to be lock. There are another two cells surrounding it.");
+		r = new Room("Corridor (East End)", "This side of the corridor leads to a giant metal gate, which appears to be locked. There are another two cells surrounding it.");
 		r.setExits("", "","","corridor2");
 		roomList.put("corridor3", r);
 	}
