@@ -56,7 +56,7 @@ public class TextAdventure {
 
 	void setup() {
 		Room.setupRooms(roomList);
-		// Item.setupItems(itemList, roomList);
+		Item.setupItems(itemList, roomList);
 		currentRoom = "startingcell";
 	}
 
@@ -93,6 +93,70 @@ public class TextAdventure {
 	void inspect(String item) {
 		if (itemList.get(item) != null) {
 			System.out.println(itemList.get(item).description);
+		}
+		else {
+			System.out.println("You can't find " + item + ".");
+		}
+	}
+	
+	void search () {
+		ArrayList searchItems = roomList.get(currentRoom).items;
+		if (searchItems.size() > 0){
+		for (int i = 0; i < searchItems.size(); i++) {
+			System.out.print(searchItems.get(i) + " ");
+		}
+		System.out.println();
+		}
+		else {
+		System.out.println("There is nothing of interest!");
+		}
+	}
+	
+	void listInventory(){
+		if (inventory.size() > 0) {
+			for (int i = 0; i < inventory.size(); i++) {
+				Item currentItem = (Item) inventory.get(i);
+				System.out.print( currentItem.name + " ");
+			}
+			System.out.println();
+		}
+		else {
+			System.out.println("Your inventory is empty.");
+		}
+	}
+	
+	void drop(String item) {
+		if (inventory.size() > 0) {
+			int index = 420;
+			for (int i = 0; i < inventory.size(); i++) {
+				Item droppedItem = (Item) inventory.get(i);
+				if (droppedItem.name.equals(item)) {
+					index = i;
+				}
+			}
+			if (index != 420) {
+			roomList.get(currentRoom).items.add(inventory.get(index));
+			inventory.remove(index);
+			System.out.println("Dropped " + item + ".");
+			}
+			else {
+				System.out.println("You can't find " + item + ".");
+			}
+		}
+		else {
+			System.out.println("Your inventory is empty.");
+		}
+	}
+	
+	void take(String item) {
+		if (itemList.get(item) != null) {
+			Item addedItem = itemList.get(item);
+			inventory.add(addedItem);
+			roomList.get(currentRoom).items.remove(item);
+			System.out.println("Picked up " + item + ".");
+		}
+		else {
+			System.out.println("You can't find " + item + ".");
 		}
 	}
 
@@ -146,8 +210,20 @@ public class TextAdventure {
 		case "down":
 			moveToRoom(word1.charAt(0));
 			break;
-		case "inspect":
+		case "inspect": case "lookat":
 			inspect(word2);
+			break;
+		case "search":
+			search();
+			break;
+		case "take": case "pickup":
+			take(word2);
+			break;
+		case "drop":
+			drop(word2);
+			break;
+		case "inventory": case "i":
+			listInventory();
 			break;
 		default:
 			System.out.println("Sorry, I don't understand that command");

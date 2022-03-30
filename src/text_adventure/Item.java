@@ -25,9 +25,14 @@ class Item {
 	 //create items
 	 static void setupItems(HashMap<String,Item> itemList, HashMap<String, Room> roomList) {
 		
-		 Item z = new Item("large knife", "a sharp knife with a bone handle, engraved");
-		 z.readText = "orcrist";
-		 itemList.put("knife", z);
-		 roomList.get("kitchen").items.add("knife");
+		 Item z = new Item("bucket", "an old wooden bucket, smells bad");
+		 itemList.put("bucket", z);
+		 roomList.get("startingcell").items.add("bucket");
+	 }
+	 
+	 @Override
+	public
+	 String toString() {
+		 return name;
 	 }
 }
