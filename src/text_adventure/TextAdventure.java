@@ -17,7 +17,7 @@ public class TextAdventure {
 
 	int turns = 0;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) 
 		new TextAdventure();
 	}
 
@@ -30,9 +30,7 @@ public class TextAdventure {
 
 		System.out.println(
 				"You wake up in your cell with no memory of what happened prior. You are inside a dungeon cell. The first thing you hear is the screams of people being dragged through the corridor. Upon inspection, you realize that they are being taken to an execution room. You are shocked. Before long, a guard unlocks your door. \r\n"
-						+ "\r\n" + "It is time, criminal, he says. \r\n" + "\r\n" + "\r\n"
-						+ "Before the guard can reach you, he topples over and is unconscious, behind him, revealing another prisoner.\r\n"
-						+ "\r\n" + "Let’s get out of here, the prisoner says before taking off.\r\n");
+
 
 		lookAtRoom(true); // display information about the current room
 
