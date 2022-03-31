@@ -30,9 +30,7 @@ public class TextAdventure {
 
 		System.out.println(
 				"You wake up in your cell with no memory of what happened prior. You are inside a dungeon cell. The first thing you hear is the screams of people being dragged through the corridor. Upon inspection, you realize that they are being taken to an execution room. You are shocked. Before long, a guard unlocks your door. \r\n"
-						+ "\r\n" + "�It is time, criminal,� he says. \r\n" + "\r\n" + "\r\n"
-						+ "Before the guard can reach you, he topples over and is unconscious, behind him, revealing another prisoner.\r\n"
-						+ "\r\n" + "�Let�s get out of here,� the prisoner says before taking off.\r\n");
+
 
 		lookAtRoom(true); // display information about the current room
 
@@ -89,9 +87,26 @@ public class TextAdventure {
 			lookAtRoom(true);
 		}
 	}
-
-	void inspect(String item) {
-		if (itemList.get(item) != null) {
+	boolean inRoom(String item) {
+		ArrayList bruh = roomList.get(currentRoom).items;
+		for (int i = 0; i < bruh.size(); i++) {
+			if (bruh.get(i).equals(item)) {
+				return true;
+			}
+		} 
+		return false;
+	}
+	int inInv(String item) {
+		for (int i = 0; i < inventory.size(); i++) {
+			Item inInventory = (Item) inventory.get(i);
+			if (inInventory.name.equals(item)) {
+				return i;
+			}
+		} 
+		return -1;
+	}
+	void inspect(String item) {	
+		if (inRoom(item) || inInv(item) >= 0) {
 			System.out.println(itemList.get(item).description);
 		}
 		else {
@@ -126,34 +141,51 @@ public class TextAdventure {
 	}
 	
 	void drop(String item) {
-		if (inventory.size() > 0) {
-			int index = 420;
-			for (int i = 0; i < inventory.size(); i++) {
-				Item droppedItem = (Item) inventory.get(i);
-				if (droppedItem.name.equals(item)) {
-					index = i;
+			if (inventory.size() == 0) {
+				System.out.println("Your inventory is empty.");
 				}
-			}
-			if (index != 420) {
+			else {
+			int index = inInv(item);
+			if (index >= 0) {
 			roomList.get(currentRoom).items.add(inventory.get(index));
 			inventory.remove(index);
 			System.out.println("Dropped " + item + ".");
 			}
 			else {
-				System.out.println("You can't find " + item + ".");
+			System.out.println("Cannot find " + item + ".");
 			}
-		}
-		else {
-			System.out.println("Your inventory is empty.");
-		}
+			}
 	}
 	
 	void take(String item) {
-		if (itemList.get(item) != null) {
+		if (inRoom(item)) {
 			Item addedItem = itemList.get(item);
+			if (addedItem.isCarryable) {
 			inventory.add(addedItem);
 			roomList.get(currentRoom).items.remove(item);
 			System.out.println("Picked up " + item + ".");
+			}
+			else {
+				System.out.println(item + " is not carriable!");
+			}
+		}
+		else {
+			System.out.println("You can't find " + item + ".");
+		}
+	}
+	
+	void loot(String item) {
+		if (inRoom(item)) {
+			Item addedItem = itemList.get(item);
+			if (addedItem.loot != "") {
+				Item lootedItem = itemList.get(addedItem.loot);
+				inventory.add(lootedItem);
+				System.out.println("Looted " + lootedItem + ".");
+				addedItem.loot = "";
+			}
+			else {
+				System.out.println("There is no loot!");
+			}
 		}
 		else {
 			System.out.println("You can't find " + item + ".");
@@ -224,6 +256,9 @@ public class TextAdventure {
 			break;
 		case "inventory": case "i":
 			listInventory();
+			break;
+		case "loot":
+			loot(word2);
 			break;
 		default:
 			System.out.println("Sorry, I don't understand that command");
